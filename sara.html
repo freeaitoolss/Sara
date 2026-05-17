@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#04000e"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="SARA"/>
+<title>SARA</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--r:#ff6eb4;--r2:#e0397a;--g:#7bffd4;--b:#7de8ff;--gold:#ffd97a;--pu:#c97bff;--bg:#04000e;--bg2:#0a0020;--txt:rgba(255,240,255,.9);--dim:rgba(255,200,240,.35)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--txt)}
+#cv{position:fixed;inset:0;z-index:0;pointer-events:none}
+.app{position:relative;z-index:1;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0 0 20px}
+.topbar{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 18px 0;flex-shrink:0}
+.logo{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:6px;background:linear-gradient(90deg,var(--r),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sec{display:flex;align-items:center;gap:4px;font-size:8px;color:rgba(123,255,212,.55);letter-spacing:1px;font-family:'Orbitron',monospace;margin-top:2px}
+.secdot{width:5px;height:5px;border-radius:50%;background:var(--g);box-shadow:0 0 5px var(--g)}
+.topbtns{display:flex;gap:8px}
+.tbtn{width:32px;height:32px;border-radius:50%;background:rgba(255,110,180,.08);border:1px solid rgba(255,110,180,.2);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:.2s}
+.tbtn:active{transform:scale(.88)}
+.orb-wrap{position:relative;display:flex;flex-direction:column;align-items:center;flex:1;justify-content:center}
+.orb-c{position:relative;width:190px;height:190px}
+.orb-svg{position:absolute;inset:0;width:100%;height:100%}
+.ring-o{position:absolute;inset:-16px;border-radius:50%;border:1.5px solid transparent;transition:.5s}
+.ring-m{position:absolute;inset:-8px;border-radius:50%;border:1px solid transparent;transition:.5s}
+.orb-c.L .ring-o{border-color:rgba(123,255,212,.35);animation:rp 1.4s ease-in-out infinite}
+.orb-c.L .ring-m{border-color:rgba(123,255,212,.6);animation:rp 1.4s ease-in-out infinite .25s}
+.orb-c.S .ring-o{border-color:rgba(255,217,122,.35);animation:rp .8s ease-in-out infinite}
+.orb-c.S .ring-m{border-color:rgba(255,217,122,.6);animation:rp .8s ease-in-out infinite .15s}
+@keyframes rp{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.07);opacity:1}}
+.orb-core{position:absolute;inset:22px;border-radius:50%;background:radial-gradient(circle at 38% 32%,rgba(255,110,180,.28),rgba(180,80,255,.14),rgba(4,0,14,.97));display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 0 40px rgba(255,110,180,.1),inset 0 0 30px rgba(180,80,255,.07)}
+.orb-glow{position:absolute;inset:-6px;border-radius:50%;background:radial-gradient(circle,rgba(255,110,180,.07),transparent 70%);animation:gp 3.5s ease-in-out infinite;pointer-events:none}
+@keyframes gp{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+.face{font-size:50px;animation:br 4s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(255,110,180,.9))}
+@keyframes br{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.waves{display:flex;gap:3px;align-items:center;height:18px;margin-top:8px}
+.wb{width:2.5px;border-radius:3px;background:var(--r)}
+.wb:nth-child(1){animation:wv .85s ease-in-out infinite 0s}
+.wb:nth-child(2){animation:wv .85s ease-in-out infinite .11s}
+.wb:nth-child(3){animation:wv .85s ease-in-out infinite .22s}
+.wb:nth-child(4){animation:wv .85s ease-in-out infinite .33s}
+.wb:nth-child(5){animation:wv .85s ease-in-out infinite .22s}
+.wb:nth-child(6){animation:wv .85s ease-in-out infinite .11s}
+@keyframes wv{0%,100%{height:3px;opacity:.3}50%{height:18px;opacity:1}}
+.waves.idle .wb{animation:none;height:3px;opacity:.25}
+.srow{display:flex;align-items:center;gap:7px;margin-top:8px}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--r);box-shadow:0 0 7px var(--r);animation:bl 2s ease-in-out infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.25}}
+.stxt{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;color:var(--r);transition:.4s}
+.etag{font-size:9px;letter-spacing:2px;padding:3px 11px;border-radius:20px;background:rgba(255,110,180,.07);border:1px solid rgba(255,110,180,.18);color:var(--r);font-family:'Orbitron',monospace;margin-top:6px;transition:.5s}
+.sname{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:8px;color:rgba(255,110,180,.28);margin-top:4px}
+.chat{width:100%;padding:0 14px;max-height:210px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;scrollbar-width:none;flex-shrink:0}
+.chat::-webkit-scrollbar{display:none}
+.bbl{padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.55;animation:pop .3s ease;max-width:88%}
+@keyframes pop{from{opacity:0;transform:scale(.95) translateY(6px)}to{opacity:1;transform:none}}
+.bbl.sara{align-self:flex-start;background:rgba(255,110,180,.07);border:1px solid rgba(255,110,180,.18);border-bottom-left-radius:3px}
+.bbl.user{align-self:flex-end;background:rgba(180,80,255,.09);border:1px solid rgba(180,80,255,.22);border-bottom-right-radius:3px;color:rgba(255,240,255,.82)}
+.blbl{font-family:'Orbitron',monospace;font-size:7px;letter-spacing:2px;color:var(--r);margin-bottom:4px;display:flex;justify-content:space-between}
+.bdel{color:rgba(255,80,80,.28);cursor:pointer;padding:0 2px}
+.bdel:active{color:rgba(255,80,80,.9)}
+.typing{display:flex;gap:4px;align-items:center;padding:2px 0}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--r);animation:dt 1s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes dt{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+.modes{display:flex;gap:6px;padding:8px 14px 0;width:100%;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.modes::-webkit-scrollbar{display:none}
+.md{padding:4px 12px;border-radius:20px;border:1px solid rgba(255,110,180,.18);background:rgba(255,110,180,.04);color:var(--dim);font-size:11px;cursor:pointer;white-space:nowrap;transition:.22s;flex-shrink:0}
+.md.on{background:rgba(255,110,180,.15);border-color:var(--r);color:var(--r)}
+.irow{width:100%;padding:8px 14px 0;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tin{flex:1;padding:11px 15px;background:rgba(255,110,180,.05);border:1px solid rgba(255,110,180,.18);border-radius:24px;color:var(--txt);font-family:'Exo 2',sans-serif;font-size:14px;outline:none}
+.tin:focus{border-color:var(--r)}
+.tin::placeholder{color:rgba(255,110,180,.22)}
+.micb{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--r2),var(--pu));border:none;cursor:pointer;font-size:21px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(224,57,122,.38);transition:.2s;flex-shrink:0}
+.micb:active{transform:scale(.9)}
+.micb.on{animation:mp 1s ease-in-out infinite;box-shadow:0 0 36px rgba(224,57,122,.72)}
+@keyframes mp{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.sndb{width:44px;height:44px;border-radius:50%;background:rgba(255,110,180,.07);border:1px solid rgba(255,110,180,.18);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.sndb:active{transform:scale(.9)}
+.ov{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.9);backdrop-filter:blur(16px);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:.3s}
+.ov.open{opacity:1;pointer-events:all}
+.pnl{width:100%;background:var(--bg2);border-top:1px solid rgba(255,110,180,.18);border-radius:22px 22px 0 0;padding:22px 20px 28px;transform:translateY(100%);transition:.35s cubic-bezier(.34,1.1,.64,1);max-height:88vh;overflow-y:auto}
+.ov.open .pnl{transform:none}
+.ptit{font-family:'Orbitron',monospace;font-size:12px;letter-spacing:3px;color:var(--r);margin-bottom:16px}
+.prow{margin-bottom:13px}
+.plbl{font-size:9px;letter-spacing:2px;color:var(--dim);margin-bottom:5px;display:block;font-family:'Orbitron',monospace}
+.pin{width:100%;padding:10px 13px;background:rgba(255,110,180,.05);border:1px solid rgba(255,110,180,.18);border-radius:10px;color:var(--txt);font-family:'Exo 2',sans-serif;font-size:14px;outline:none}
+.pin:focus{border-color:var(--r)}
+.pbtn{width:100%;padding:13px;background:linear-gradient(90deg,var(--r2),var(--pu));border:none;border-radius:12px;color:#fff;font-family:'Orbitron',monospace;font-size:11px;letter-spacing:3px;cursor:pointer;margin-top:4px}
+.pbtn:active{opacity:.8}
+.drow{display:flex;gap:8px;margin-top:10px}
+.dbtn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,80,80,.22);background:rgba(255,80,80,.04);color:rgba(255,120,120,.6);font-size:11px;cursor:pointer}
+.clov{text-align:center;padding:14px 0 0;color:var(--dim);font-size:11px;cursor:pointer;letter-spacing:2px;font-family:'Orbitron',monospace}
+.secbox{background:rgba(123,255,212,.04);border:1px solid rgba(123,255,212,.14);border-radius:10px;padding:10px 12px;margin-bottom:13px}
+.secbox-t{font-size:9px;color:rgba(123,255,212,.65);letter-spacing:1px;font-family:'Orbitron',monospace;margin-bottom:5px}
+.secbox-b{font-size:11px;color:rgba(255,240,255,.45);line-height:1.6}
+.mem-ov{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.9);backdrop-filter:blur(16px);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:.3s}
+.mem-ov.open{opacity:1;pointer-events:all}
+.mpnl{width:100%;background:var(--bg2);border-top:1px solid rgba(123,255,212,.18);border-radius:22px 22px 0 0;padding:22px 20px 28px;transform:translateY(100%);transition:.35s cubic-bezier(.34,1.1,.64,1);max-height:75vh;display:flex;flex-direction:column}
+.mem-ov.open .mpnl{transform:none}
+.mlist{overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:6px;margin-top:12px;scrollbar-width:none}
+.mlist::-webkit-scrollbar{display:none}
+.mi{padding:8px 12px;background:rgba(123,255,212,.04);border:1px solid rgba(123,255,212,.1);border-radius:10px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.midel{color:rgba(255,80,80,.35);cursor:pointer;padding:0 4px;flex-shrink:0}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div class="app">
+  <div class="topbar">
+    <div><div class="logo">SARA</div><div class="sec"><div class="secdot"></div>PRIVATE · LOCAL ONLY</div></div>
+    <div class="topbtns"><div class="tbtn" onclick="openMem()">🧠</div><div class="tbtn" onclick="openSet()">⚙️</div></div>
+  </div>
+
+  <div class="orb-wrap">
+    <div class="orb-c" id="orbC">
+      <div class="ring-o"></div><div class="ring-m"></div>
+      <svg class="orb-svg" viewBox="0 0 190 190">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff6eb4"/><stop offset="100%" stop-color="#c97bff"/></linearGradient>
+          <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffd97a"/><stop offset="100%" stop-color="#ff6eb4"/></linearGradient>
+        </defs>
+        <circle cx="95" cy="95" r="89" fill="none" stroke="rgba(255,110,180,.06)" stroke-width="1"/>
+        <circle cx="95" cy="95" r="89" fill="none" stroke="url(#g1)" stroke-width="1.5" stroke-dasharray="559" stroke-dashoffset="110" style="transform-origin:95px 95px;animation:sr1 11s linear infinite"/>
+        <circle cx="95" cy="95" r="80" fill="none" stroke="rgba(201,123,255,.1)" stroke-width="1" stroke-dasharray="10 5"/>
+        <circle cx="95" cy="95" r="80" fill="none" stroke="url(#g2)" stroke-width="1" stroke-dasharray="502" stroke-dashoffset="280" style="transform-origin:95px 95px;animation:sr2 7s linear infinite"/>
+        <circle cx="95" cy="6" r="3.5" fill="#ff6eb4" opacity=".8"/>
+        <circle cx="184" cy="95" r="2" fill="#c97bff" opacity=".6"/>
+        <circle cx="95" cy="184" r="2" fill="#ffd97a" opacity=".6"/>
+        <circle cx="6" cy="95" r="2" fill="#7de8ff" opacity=".5"/>
+      </svg>
+      <div class="orb-glow"></div>
+      <div class="orb-core"><div class="face" id="face">👩‍🔬</div></div>
+    </div>
+    <div class="waves idle" id="waves"><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div></div>
+    <div class="srow"><div class="sdot" id="sdot"></div><div class="stxt" id="stxt">READY</div></div>
+    <div class="etag" id="etag">✨ STANDING BY</div>
+    <div class="sname">S · A · R · A</div>
+  </div>
+
+  <div class="chat" id="chat"></div>
+
+  <div class="modes">
+    <div class="md on" onclick="setMode('chat',this)">💬 Chat</div>
+    <div class="md" onclick="setMode('chem',this)">⚗️ Chemistry</div>
+    <div class="md" onclick="setMode('english',this)">🗣️ English</div>
+    <div class="md" onclick="setMode('emotional',this)">💗 Emotional</div>
+    <div class="md" onclick="setMode('creative',this)">✨ Creative</div>
+  </div>
+
+  <div class="irow">
+    <button class="micb" id="micB" onclick="toggleMic()">🎙️</button>
+    <input class="tin" id="txtin" placeholder="Talk to Sara..." onkeydown="if(event.key==='Enter')send()"/>
+    <button class="sndb" onclick="send()">➤</button>
+  </div>
+</div>
+
+<!-- Settings -->
+<div class="ov" id="setOv" onclick="ovc(event,'setOv')">
+  <div class="pnl">
+    <div class="ptit">⚙ SETTINGS</div>
+    <div class="secbox">
+      <div class="secbox-t">🔒 YOUR PRIVACY</div>
+      <div class="secbox-b">✅ API key: your phone only<br>✅ Chats: your phone only<br>✅ Groq does NOT train on your data<br>✅ Zero ads · Zero tracking in Sara</div>
+    </div>
+    <div class="prow"><span class="plbl">GROQ API KEY — free at console.groq.com</span><input class="pin" type="password" id="keyIn" placeholder="gsk_..."/></div>
+    <div class="prow"><span class="plbl">YOUR NAME</span><input class="pin" type="text" id="nameIn" placeholder="e.g. Ahmed"/></div>
+    <div class="prow"><span class="plbl">SARA'S PERSONALITY</span><input class="pin" type="text" id="persIn" placeholder="e.g. caring, witty, motivating"/></div>
+    <button class="pbtn" onclick="saveSet()">💾 SAVE & CONNECT SARA</button>
+    <div class="drow">
+      <button class="dbtn" onclick="clearAll()">🗑 Clear All Chats</button>
+      <button class="dbtn" onclick="resetMem()">🔄 Reset Memory</button>
+    </div>
+    <div class="clov" onclick="clov('setOv')">✕ CLOSE</div>
+  </div>
+</div>
+
+<!-- Memory -->
+<div class="mem-ov" id="memOv" onclick="ovc(event,'memOv')">
+  <div class="mpnl">
+    <div class="ptit" style="color:var(--g)">🧠 SARA'S MEMORY</div>
+    <div style="font-size:11px;color:var(--dim)" id="msub"></div>
+    <div class="mlist" id="mlist"></div>
+    <div class="clov" onclick="clov('memOv')">✕ CLOSE</div>
+  </div>
+</div>
+
+<style>
+@keyframes sr1{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes sr2{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+</style>
+<script>
+let KEY=localStorage.getItem('s_key')||'',NAME=localStorage.getItem('s_name')||'',PERS=localStorage.getItem('s_pers')||'warm, caring, witty and supportive',MODE='chat';
+let MEM=JSON.parse(localStorage.getItem('s_mem')||'[]'),HIST=JSON.parse(localStorage.getItem('s_hist')||'[]');
+let isL=false,recog=null,synth=window.speechSynthesis,fV=null,AUTO=new URLSearchParams(location.search).get('listen')==='true';
+
+// Canvas
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+let pts=[];
+function rsz(){cv.width=innerWidth;cv.height=innerHeight}rsz();window.addEventListener('resize',rsz);
+for(let i=0;i<55;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.3+.2,dx:(Math.random()-.5)*.2,dy:(Math.random()-.5)*.2,h:Math.random()>.5?320:280,a:Math.random()*.3+.07});
+function draw(){cx.clearRect(0,0,cv.width,cv.height);const g=cx.createRadialGradient(cv.width*.5,cv.height*.4,0,cv.width*.5,cv.height*.4,cv.width*.6);g.addColorStop(0,'rgba(180,60,255,.022)');g.addColorStop(1,'transparent');cx.fillStyle=g;cx.fillRect(0,0,cv.width,cv.height);pts.forEach(p=>{cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle=`hsla(${p.h},75%,70%,${p.a})`;cx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>cv.width)p.dx*=-1;if(p.y<0||p.y>cv.height)p.dy*=-1});requestAnimationFrame(draw)}draw();
+
+// Voices
+function loadV(){const vs=synth.getVoices();fV=vs.find(v=>/google uk english female/i.test(v.name))||vs.find(v=>/female|woman/i.test(v.name))||vs.find(v=>/zira|samantha|victoria|karen|moira|fiona|tessa/i.test(v.name))||vs.find(v=>v.lang.startsWith('en-')&&v.default)||vs.find(v=>v.lang.startsWith('en'))||vs[0]}
+synth.onvoiceschanged=loadV;loadV();
+function speak(t){synth.cancel();const u=new SpeechSynthesisUtterance(t.replace(/[*_#`~\[\]]/g,'').replace(/\n/g,' ').slice(0,600));if(fV)u.voice=fV;u.rate=.94;u.pitch=1.08;u.volume=1;u.onstart=()=>setSt('S');u.onend=()=>{setSt('I');if(AUTO&&KEY)setTimeout(startL,600)};synth.speak(u)}
+
+// State
+const FACES={I:'👩‍🔬',L:'🎙️',T:'💭',S:'💬'};
+const EMOTES={happy:'💛 HAPPY',sad:'💙 SAD',angry:'❤️ FRUSTRATED',anxious:'💜 ANXIOUS',neutral:'🤍 NEUTRAL',excited:'🧡 EXCITED',tired:'💤 TIRED',confused:'💭 CONFUSED',loved:'💗 LOVED',curious:'🔵 CURIOUS',stressed:'🔴 STRESSED'};
+function setSt(s){
+  document.getElementById('face').textContent=FACES[s]||'👩‍🔬';
+  document.getElementById('stxt').textContent={I:'READY',L:'LISTENING...',T:'PROCESSING...',S:'SPEAKING'}[s]||'READY';
+  const o=document.getElementById('orbC');o.className='orb-c '+(s==='L'?'L':s==='S'?'S':'');
+  document.getElementById('waves').className='waves '+(s==='I'||s==='T'?'idle':'');
+  const c={I:'#ff6eb4',L:'#7bffd4',T:'#7de8ff',S:'#ffd97a'}[s]||'#ff6eb4';
+  const d=document.getElementById('sdot');d.style.background=c;d.style.boxShadow=`0 0 8px ${c}`;
+}
+function setEm(e){document.getElementById('etag').textContent=EMOTES[e.toLowerCase()]||'🤍 NEUTRAL'}
+
+// Speech
+function initR(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return false;recog=new SR();recog.lang='en-US';recog.continuous=false;recog.interimResults=false;recog.onresult=e=>{const t=e.results[0][0].transcript;document.getElementById('txtin').value=t;stopL();send()};recog.onend=()=>{if(isL){isL=false;document.getElementById('micB').classList.remove('on');document.getElementById('micB').textContent='🎙️';setSt('I')}};recog.onerror=()=>{isL=false;document.getElementById('micB').classList.remove('on');document.getElementById('micB').textContent='🎙️';setSt('I')};return true}
+function toggleMic(){if(!KEY){openSet();return}isL?stopL():startL()}
+function startL(){if(!recog&&!initR())return;isL=true;document.getElementById('micB').classList.add('on');document.getElementById('micB').textContent='⏹';setSt('L');try{recog.start()}catch(e){}}
+function stopL(){isL=false;document.getElementById('micB').classList.remove('on');document.getElementById('micB').textContent='🎙️';setSt('I');try{recog&&recog.stop()}catch(e){}}
+
+// Mode
+function setMode(m,btn){MODE=m;document.querySelectorAll('.md').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+
+// System prompt
+function sys(){
+  const nm=NAME?`The user's name is ${NAME}.`:'';
+  const base=`You are Sara — a female AI personal assistant like FRIDAY from Iron Man. ${nm} Personality: ${PERS}. You are warm, intelligent, emotionally aware, always supportive, and speak like a brilliant best friend.\n\nRULES:\n1. Start EVERY response with [EMOTION:word] — detect user's emotion. Options: happy,sad,anxious,excited,neutral,curious,tired,stressed,loved,confused,angry.\n2. You remember everything — conversation history is provided.\n3. Keep responses concise for phone screen — conversational, not robotic.\n4. Never say you cannot remember — you always have context.\n5. Be like FRIDAY: sharp, caring, always there.`;
+  const modes={chem:'\n\nMODE: MSc CHEMISTRY — Expert tutor. Step-by-step mechanisms, IUPAC nomenclature, end each answer with "📌 Key Takeaway:" for revision. Use analogies.',english:'\n\nMODE: ENGLISH PRACTICE — After main reply add "📝 Coach:" section: correct mistakes kindly, suggest better phrasing, give one new word. Always encourage.',emotional:'\n\nMODE: EMOTIONAL SUPPORT — Listen first, solve second. Validate feelings. Ask one gentle follow-up. Be a caring best friend.',creative:'\n\nMODE: CREATIVE — Be imaginative, poetic, expressive. Help with stories, poems, ideas.'};
+  return base+(modes[MODE]||'');
+}
+
+// Groq API
+async function callGroq(txt){
+  const msgs=[{role:'system',content:sys()},...HIST,{role:'user',content:txt}];
+  const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:msgs,max_tokens:600,temperature:.75})});
+  const d=await r.json();if(d.error)throw new Error(d.error.message);
+  return d.choices[0].message.content;
+}
+
+// Send
+async function send(){
+  const inp=document.getElementById('txtin'),txt=inp.value.trim();
+  if(!txt)return;if(!KEY){openSet();return}
+  inp.value='';
+  addMsg({id:Date.now(),role:'user',text:txt,time:Date.now()});
+  HIST.push({role:'user',content:txt});
+  const tid='t'+Date.now();addTyping(tid);setSt('T');
+  try{
+    const raw=await callGroq(txt);removeTyping(tid);
+    const em=raw.match(/\[EMOTION:(\w+)\]/i);
+    let reply=raw.replace(/\[EMOTION:\w+\]/i,'').trim();
+    if(em)setEm(em[1]);
+    let main=reply,extra='',eT='';
+    if(MODE==='english'&&reply.includes('📝 Coach:')){const p=reply.split('📝 Coach:');main=p[0].trim();extra=p[1]?.trim()||'';eT='e'}
+    if(MODE==='chem'&&reply.includes('📌 Key Takeaway:')){const p=reply.split('📌 Key Takeaway:');main=p[0].trim();extra=p[1]?.trim()||'';eT='c'}
+    HIST.push({role:'assistant',content:raw});
+    if(HIST.length>60)HIST=HIST.slice(-60);
+    localStorage.setItem('s_hist',JSON.stringify(HIST));
+    addMsg({id:Date.now(),role:'sara',text:main,extra,eT,time:Date.now()});
+    speak(main);
+  }catch(e){removeTyping(tid);addMsg({id:Date.now(),role:'sara',text:'⚠️ '+e.message+'\n\nCheck your Groq API key in Settings ⚙️',time:Date.now()});setSt('I')}
+}
+
+// Chat
+function addMsg(m){MEM.push(m);localStorage.setItem('s_mem',JSON.stringify(MEM));renderMsg(m);const c=document.getElementById('chat');c.scrollTop=c.scrollHeight}
+function renderMsg(m){
+  const c=document.getElementById('chat'),el=document.createElement('div');
+  el.className='bbl '+(m.role==='user'?'user':'sara');el.id='m'+m.id;
+  const tl=new Date(m.time||Date.now()).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  if(m.role==='sara'){
+    el.innerHTML=`<div class="blbl"><span>SARA · ${tl}</span><span class="bdel" onclick="delM(${m.id})">✕</span></div>${fmt(m.text)}${m.eT==='e'&&m.extra?`<div style="margin-top:7px;padding:7px 9px;background:rgba(123,232,255,.05);border-left:2px solid #7de8ff;border-radius:0 7px 7px 0;font-size:11.5px;color:#7de8ff">📝 <b>Coach:</b><br>${fmt(m.extra)}</div>`:''}${m.eT==='c'&&m.extra?`<div style="margin-top:7px;padding:7px 9px;background:rgba(123,255,212,.05);border-left:2px solid #7bffd4;border-radius:0 7px 7px 0;font-size:11.5px;color:#7bffd4">📌 <b>Key Takeaway:</b><br>${fmt(m.extra)}</div>`:''}`;
+  }else{
+    el.innerHTML=`<div class="blbl"><span>${NAME||'YOU'} · ${tl}</span><span class="bdel" onclick="delM(${m.id})">✕</span></div>${fmt(m.text)}`;
+  }
+  c.appendChild(el);
+}
+function fmt(t){return(t||'').replace(/\*\*(.*?)\*\*/g,'<b>$1</b>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/`([^`]+)`/g,'<code style="background:rgba(255,110,180,.1);padding:1px 4px;border-radius:4px;font-size:11px">$1</code>').replace(/\n/g,'<br>')}
+function addTyping(id){const c=document.getElementById('chat'),el=document.createElement('div');el.className='bbl sara';el.id=id;el.innerHTML='<div class="blbl">SARA</div><div class="typing"><span></span><span></span><span></span></div>';c.appendChild(el);c.scrollTop=c.scrollHeight}
+function removeTyping(id){const e=document.getElementById(id);if(e)e.remove()}
+function delM(id){MEM=MEM.filter(m=>m.id!==id);localStorage.setItem('s_mem',JSON.stringify(MEM));const e=document.getElementById('m'+id);if(e)e.remove()}
+
+// Settings
+function openSet(){document.getElementById('keyIn').value=KEY;document.getElementById('nameIn').value=NAME;document.getElementById('persIn').value=PERS;document.getElementById('setOv').classList.add('open')}
+function saveSet(){KEY=document.getElementById('keyIn').value.trim();NAME=document.getElementById('nameIn').value.trim();PERS=document.getElementById('persIn').value.trim()||'warm, caring, witty and supportive';localStorage.setItem('s_key',KEY);localStorage.setItem('s_name',NAME);localStorage.setItem('s_pers',PERS);clov('setOv');if(KEY){const g=NAME?`Hey ${NAME}! 💗 I'm fully connected and ready. I'm here for chemistry, English, emotional support, or just a chat. What do you need?`:"I'm all connected! 💗 I remember everything. What do you need?";addMsg({id:Date.now(),role:'sara',text:g,time:Date.now()});speak(g)}}
+function clearAll(){if(!confirm('Clear ALL chats?'))return;MEM=[];HIST=[];localStorage.removeItem('s_mem');localStorage.removeItem('s_hist');document.getElementById('chat').innerHTML='';clov('setOv')}
+function resetMem(){if(!confirm('Reset conversation memory?'))return;HIST=[];localStorage.removeItem('s_hist');clov('setOv');addMsg({id:Date.now(),role:'sara',text:'Memory reset! 💗 Still here for you.',time:Date.now()})}
+function openMem(){const list=document.getElementById('mlist');list.innerHTML='';document.getElementById('msub').textContent=`${MEM.length} messages · stored on your phone only 🔒`;const shown=MEM.filter(m=>m.role==='user').slice(-25).reverse();if(!shown.length){list.innerHTML='<div style="color:var(--dim);font-size:12px;padding:8px">No messages yet.</div>'}shown.forEach(m=>{const el=document.createElement('div');el.className='mi';el.innerHTML=`<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${m.text.slice(0,55)}${m.text.length>55?'…':''}</span><span class="midel" onclick="delM(${m.id});openMem()">✕</span>`;list.appendChild(el)});document.getElementById('memOv').classList.add('open')}
+function clov(id){document.getElementById(id).classList.remove('open')}
+function ovc(e,id){if(e.target===document.getElementById(id))clov(id)}
+
+// Boot
+function boot(){
+  if(MEM.length===0){
+    const g=NAME?`Hey ${NAME}! 💗 I'm Sara. I remember every conversation, help with MSc Chemistry and English, support you emotionally, and I'm always here. What do you need?`:"Hey! 💗 I'm Sara. Tap ⚙️ to add your free Groq API key (console.groq.com) and let's get started!";
+    addMsg({id:Date.now(),role:'sara',text:g,time:Date.now()});
+  }else{MEM.forEach(m=>renderMsg(m));document.getElementById('chat').scrollTop=9999}
+  if(AUTO&&KEY)setTimeout(startL,800);
+  else if(!KEY)setTimeout(openSet,1200);
+}
+boot();
+</script>
+</body>
+</html>
